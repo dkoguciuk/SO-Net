@@ -1,0 +1,10 @@
+FROM nvcr.io/nvidia/pytorch:18.08-py3
+MAINTAINER Łukasz Chechliński <lukasz.chechlinski@gmail.com>
+
+RUN pip install --upgrade pip && \
+    pip install numba h5py dominate && \
+    conda install cudatoolkit && \
+    conda install faiss-gpu -c pytorch && \
+    conda install -c conda-forge visdom
+
+CMD bash
