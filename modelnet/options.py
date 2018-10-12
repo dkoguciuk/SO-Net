@@ -51,6 +51,8 @@ class Options():
         self.parser.add_argument('--rot_perturbation', type=bool, default=False, help='Small rotation augmentation around 3 axis.')
         self.parser.add_argument('--translation_perturbation', type=bool, default=False, help='Small translation augmentation around 3 axis.')
 
+        self.parser.add_argument('--subset_suffix', type=str, default='', help='e.g. _sz01_v0')
+
         self.initialized = True
 
     def parse(self):

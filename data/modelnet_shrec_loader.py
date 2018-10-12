@@ -35,7 +35,11 @@ def make_dataset_modelnet40_10k(root, mode, opt):
     f.close()
 
     if 'train' == mode:
-        f = open(os.path.join(root, 'modelnet%d_train.txt' % opt.classes), 'r')
+        if opt.subset_suffix == '':
+            filename = 'modelnet%d_train.txt' % opt.classes
+        else:
+            filename = ('modelnet%d_train' % opt.classes) + opt.subset_suffix + '.txt'
+        f = open(os.path.join(root, filename), 'r')
         lines = [str.rstrip() for str in f.readlines()]
         f.close()
     elif 'test' == mode:
