@@ -97,10 +97,10 @@ if __name__=='__main__':
                 saving_acc_threshold = 0.930
             else:
                 saving_acc_threshold = 0.918
-            if model.test_accuracy.item() > saving_acc_threshold:
-                print("Saving network...")
-                model.save_network(model.encoder, 'encoder', '%d_%f' % (epoch, model.test_accuracy.item()), opt.gpu_id)
-                model.save_network(model.classifier, 'classifier', '%d_%f' % (epoch, model.test_accuracy.item()), opt.gpu_id)
+            #if model.test_accuracy.item() > saving_acc_threshold:
+            #    print("Saving network...")
+            #    model.save_network(model.encoder, 'encoder', '%d_%f' % (epoch, model.test_accuracy.item()), opt.gpu_id)
+            #    model.save_network(model.classifier, 'classifier', '%d_%f' % (epoch, model.test_accuracy.item()), opt.gpu_id)
 
         # learning rate decay
         if opt.classes == 10:
@@ -118,10 +118,11 @@ if __name__=='__main__':
             print('BN momentum updated to: %f' % current_bn_momentum)
 
         # save network
-        # if epoch%20==0 and epoch>0:
-        #     print("Saving network...")
-        #     model.save_network(model.classifier, 'cls', '%d' % epoch, opt.gpu_id)
-
+        #if epoch%20==0 and epoch>0:
+        #    print("Saving network...")
+        #    model.save_network(model.classifier, 'cls', '%d' % epoch, opt.gpu_id)
+    model.save_network(model.classifier, 'classifier', '%d_%f' % (epoch, model.test_accuracy.item()), opt.gpu_id)
+    model.save_network(model.encoder, 'encoder', '%d_%f' % (epoch, model.test_accuracy.item()), opt.gpu_id)
 
 
 
