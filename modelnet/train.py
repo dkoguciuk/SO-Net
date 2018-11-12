@@ -17,12 +17,32 @@ import numpy as np
 from models.classifier import Model
 from data.modelnet_shrec_loader import ModelNet_Shrec_Loader
 from util.visualizer import Visualizer
+from torch.utils.data.sampler import Sampler
 
+class ConstRandomSampler(Sampler):
+    r"""Samples elements randomly, without replacement, but always in the same order.
+
+    Arguments:
+        data_source (Dataset): dataset to sample from
+    """
+
+    def __init__(self, data_source):
+        self.data_source = data_source
+        self.randperm_stack = torch.load('randperm_stack.pt')
+        self.epochs = 0
+
+    def __iter__(self):
+        self.epochs = (self.epochs + 1) % self.randperm_stack.size()[0]
+        return iter(self.randperm_stack[self.epochs, :].tolist())
+
+    def __len__(self):
+        return len(self.data_source)
 
 if __name__=='__main__':
     trainset = ModelNet_Shrec_Loader(opt.dataroot, 'train', opt)
     dataset_size = len(trainset)
-    trainloader = torch.utils.data.DataLoader(trainset, batch_size=opt.batch_size, shuffle=True, num_workers=opt.nThreads)
+    trainset_sampler = ConstRandomSampler(trainset)
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=opt.batch_size, shuffle=False, sampler=trainset_sampler, num_workers=opt.nThreads)
     print('#training point clouds = %d' % len(trainset))
 
     testset = ModelNet_Shrec_Loader(opt.dataroot, 'test', opt)
