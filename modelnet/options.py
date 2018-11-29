@@ -52,6 +52,13 @@ class Options():
         self.parser.add_argument('--translation_perturbation', type=bool, default=False, help='Small translation augmentation around 3 axis.')
 
         self.parser.add_argument('--subset_suffix', type=str, default='', help='e.g. _sz01_v0')
+        self.parser.add_argument('--const_traindata', type=bool, default=False,
+                                 help='Train data with constant order and augmentation')
+        self.parser.add_argument('--const_weightinit', type=bool, default=False,
+                                 help='Constant weights and biases initialization')
+        self.parser.add_argument('--const_droporder', type=bool, default=False,
+                                 help='Constant order of dropouts')
+
 
         self.initialized = True
 
