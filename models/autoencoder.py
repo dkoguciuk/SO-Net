@@ -23,6 +23,7 @@ class Model():
             self.encoder = self.encoder.to(self.opt.device)
             self.decoder = self.decoder.to(self.opt.device)
             self.chamfer_criteria = self.chamfer_criteria.to(self.opt.device)
+        # self.encoder = self.encoder.half()
 
         self.optimizer_encoder = torch.optim.Adam(self.encoder.parameters(),
                                           lr=self.opt.lr,

@@ -227,9 +227,11 @@ class ModelNet_Shrec_Loader(data.Dataset):
 
             # rotation perturbation, pc and som should follow the same rotation, surface normal rotation is unclear
             if self.opt.rot_horizontal:
-                pc_np, surface_normal_np, som_node_np = rotate_point_cloud_with_normal_som(pc_np, surface_normal_np, som_node_np)
+                pc_np, surface_normal_np, som_node_np = rotate_point_cloud_with_normal_som(pc_np, surface_normal_np,
+                                                                                           som_node_np)
             if self.opt.rot_perturbation:
-                pc_np, surface_normal_np, som_node_np = rotate_perturbation_point_cloud_with_normal_som(pc_np, surface_normal_np, som_node_np)
+                pc_np, surface_normal_np, som_node_np = rotate_perturbation_point_cloud_with_normal_som(pc_np,
+                                                                                surface_normal_np, som_node_np)
 
             # random jittering
             pc_np = jitter_point_cloud(pc_np)
