@@ -7,9 +7,10 @@ from collections import OrderedDict
 import os
 import sys
 import random
+from timeit import default_timer as timer
 
 from . import networks
-from . import losses
+#from . import losses
 
 
 class Model():
@@ -100,9 +101,12 @@ class Model():
 
     def test_model(self):
         self.encoder.eval()
+        start = timer()
         self.classifier.eval()
         self.forward(is_train=False)
+        end = timer()
         self.loss = self.softmax_criteria(self.score, self.label)
+        return (end - start)
 
     # visualization with visdom
     def get_current_visuals(self):
